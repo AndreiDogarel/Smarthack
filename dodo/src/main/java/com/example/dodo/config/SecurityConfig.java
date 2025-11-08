@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .cors(cors -> {}) // activează CORS
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/questions/**").permitAll()
                         .requestMatchers("/api/showUsers").permitAll()
                         .anyRequest().authenticated()
                 )

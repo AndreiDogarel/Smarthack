@@ -9,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/questions")
+@CrossOrigin(origins = "http://localhost:4200")
 public class QuestionsController {
     @Autowired
     private QuestionService questionService;
@@ -28,6 +31,12 @@ public class QuestionsController {
     public Boolean checkAnswer(@RequestBody CheckAnswerDto answer) {
         return questionService.checkAnswer(answer);
 
+    }
+
+    @GetMapping("/getQuestionsByDomain/{domain}")
+//    @PreAuthorize("hasRole('STUDENT')")
+    public List<QuestionDto> getQuestionsByDomain(@PathVariable("domain") String domain) {
+        return questionService.getQuestionsByDomain(domain);
     }
 
 
