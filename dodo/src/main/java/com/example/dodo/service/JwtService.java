@@ -1,6 +1,7 @@
 package com.example.dodo.service;
 
 
+import com.example.dodo.entities.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -21,7 +22,14 @@ public class JwtService {
     private static final String SECRET_KEY = "3vEryS3cr3tKeyThatShouldBeAtLeast64CharsLongForHS256Algorithm!";
 
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        Map<String, Object> claims = new HashMap<>();
+        if (userDetails instanceof User user) {
+            claims.put("role", user.getRole());
+        } else {
+            String role = userDetails.getAuthorities().iterator().next().getAuthority();
+            claims.put("role", role);
+        }
+        return generateToken(claims, userDetails);
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {

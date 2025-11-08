@@ -6,6 +6,7 @@ import com.example.dodo.entities.QuestionDto;
 import com.example.dodo.repository.QuestionsRepository;
 import com.example.dodo.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +21,16 @@ public class QuestionsController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('PROFESOR')")
-    public String addQuestion(@RequestBody QuestionDto questionDto) {
+    public ResponseEntity<QuestionDto> addQuestion(@RequestBody QuestionDto questionDto) {
+        System.out.println("➡️ Received question: " + questionDto);
+
         Question question = new Question(questionDto);
-        questionService.save(question);
-        return question.toString();
+        questionService.save(question); // întoarce entitatea salvată
+
+        // Convertești entitatea în DTO pentru răspuns
+        QuestionDto response = new QuestionDto(question);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/checkAnswer")
