@@ -1,0 +1,81 @@
+# === BACKEND (Spring Boot / Maven / Gradle) ===
+target/
+build/
+out/
+
+# IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Spring Boot
+*.pid
+*.seed
+*.key
+*.properties.bak
+*.yml.bak
+
+# Environment / Credentials
+.env
+application-*.yml
+application-*.properties
+
+# Docker
+docker-compose.override.yml
+*.env
+
+# Database
+*.db
+*.sql
+
+# Test reports
+test-output/
+surefire-reports/
+
+# Temporary files
+tmp/
+*.tmp
+
+
+# === FRONTEND (Angular / Node) ===
+node_modules/
+dist/
+build/
+.npm/
+.cache/
+coverage/
+logs/
+*.log
+
+# Environment files
+.env
+.env.local
+.env.development
+.env.production
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Dependency lock
+package-lock.json
+yarn.lock
+
+# Misc
+*.tgz
+*.zip
+*.tar
