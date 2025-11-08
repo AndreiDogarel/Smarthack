@@ -34,9 +34,6 @@ application-*.properties
 docker-compose.override.yml
 *.env
 
-# Database
-*.db
-*.sql
 
 # Test reports
 test-output/
