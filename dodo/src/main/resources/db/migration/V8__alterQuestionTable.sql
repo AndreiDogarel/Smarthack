@@ -1,0 +1,2 @@
+ALTER TABLE questions
+ADD COLUMN domeniu VARCHAR(30) NOT NULL;
