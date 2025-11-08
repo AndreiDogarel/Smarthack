@@ -1,5 +1,6 @@
 package com.example.dodo.service;
 
+import com.example.dodo.entities.CheckAnswerDto;
 import com.example.dodo.entities.Question;
 import com.example.dodo.repository.QuestionsRepository;
 import lombok.AllArgsConstructor;
@@ -13,5 +14,10 @@ public class QuestionService {
 
     public void save(Question question) {
         questionsRepository.save(question);
+    }
+
+    public Boolean checkAnswer(CheckAnswerDto answer) {
+        String correctAnswer = questionsRepository.getCorrectAnswerByQuestionId(answer.getQuestionId());
+        return correctAnswer.equals(answer.getAnswer());
     }
 }
