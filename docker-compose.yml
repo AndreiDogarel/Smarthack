@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   postgres:
     image: postgres:16
@@ -19,5 +17,36 @@ services:
       timeout: 5s
       retries: 5
 
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    entrypoint:
+      - /bin/sh
+      - -lc
+      - >
+        ollama serve & sleep 2 &&
+        ollama pull qwen2.5:7b-instruct-q4_K_M &&
+        ollama pull llama3.1:8b-instruct-q4_K_M &&
+        tail -f /dev/null
+
+  ai-service:
+    build: ./ai-service
+    environment:
+      OLLAMA_BASE_URL: http://ollama:11434
+      PRIMARY_MODEL: llama3.1:8b-instruct-q4_K_M
+      SECONDARY_MODEL: qwen2.5:7b-instruct-q4_K_M
+    ports:
+      - "8001:8001"
+    depends_on:
+      - ollama
+    volumes:
+      - hf_cache:/root/.cache/huggingface
+
+
 volumes:
   db_data:
+  ollama:
+  hf_cache:
